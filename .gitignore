@@ -1,0 +1,6 @@
+/.bundle
+.idea
+
+health_card-*.gem
+
+spec/examples.txt
