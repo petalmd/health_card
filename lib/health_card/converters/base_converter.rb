@@ -1,5 +1,5 @@
-module HealthCard::Sanitizers
-  class BaseSanitizer
+module HealthCard::Converters
+  class BaseConverter
 
     include HealthCard::DiacriticsHelper
 
@@ -10,6 +10,10 @@ module HealthCard::Sanitizers
     # @return [String] the sanitized card value
     def sanitize(card_value)
       remove_diacritics(card_value).upcase.gsub(/[^0-9A-Z]/i, '')
+    end
+
+    def beautify(_card_value)
+      raise NotImplementedError
     end
 
   end

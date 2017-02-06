@@ -6,7 +6,7 @@ module HealthCard::Validators
 
       include HealthCard::DiacriticsHelper
 
-      SANITIZER = HealthCard::Sanitizers::Canada::QuebecSanitizer
+      CONVERTER = HealthCard::Converters::Canada::QuebecConverter
       REGEX_VALIDATION = /\A[A-Z]{4}\d{6}[1-9]\d\z/
 
       # Validates the specified card value against the Canada/Quebec validator.
@@ -17,7 +17,7 @@ module HealthCard::Validators
       # @return [true, false] whether the card value is valid or not
       def card_valid?(card_value, info = {})
 
-        card_value = SANITIZER.new.sanitize(card_value)
+        card_value = HealthCard.sanitize(card_value, 'CA-QC')
 
         is_valid = validate_value(card_value) &&
             validate_checksum(card_value, info[:birth_date])

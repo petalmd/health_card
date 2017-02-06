@@ -1,10 +1,10 @@
-RSpec.describe HealthCard::Sanitizers::BaseSanitizer do
+RSpec.describe HealthCard::Converters::BaseConverter do
+
+  let(:converter) { described_class.new }
 
   describe '.sanitize' do
 
-    let(:sanitizer) { described_class.new }
-
-    subject { sanitizer.sanitize(card_value) }
+    subject { converter.sanitize(card_value) }
 
     context 'when the value has diacritics' do
       let(:card_value) { 'ÂBCDÉ0010' }
@@ -24,6 +24,16 @@ RSpec.describe HealthCard::Sanitizers::BaseSanitizer do
     context 'when the value has non-alpha-numeric characters' do
       let(:card_value) { 'ABCDE-0010' }
       it { is_expected.to eq('ABCDE0010') }
+    end
+
+  end
+
+  describe '.beautify' do
+
+    subject { converter.beautify('any_value') }
+
+    it 'raises an exception' do
+      expect { subject }.to raise_error(NotImplementedError)
     end
 
   end

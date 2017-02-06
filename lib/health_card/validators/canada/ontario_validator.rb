@@ -2,7 +2,7 @@ module HealthCard::Validators
   module Canada
     class OntarioValidator < HealthCard::Validators::BaseValidator
 
-      SANITIZER = HealthCard::Sanitizers::Canada::OntarioSanitizer
+      CONVERTER = HealthCard::Converters::Canada::OntarioConverter
       REGEX_VALIDATION = /\A[1-9]\d{9}[A-Z]{0,2}\z/
 
       # Validates the specified card value against the Canada/Ontario validator.
@@ -11,7 +11,7 @@ module HealthCard::Validators
       # @return [true, false] whether the card value is valid or not
       def card_valid?(card_value, _info = {})
 
-        card_value = SANITIZER.new.sanitize(card_value)
+        card_value = HealthCard.sanitize(card_value, 'CA-ON')
 
         validate_value(card_value) &&
             validate_checksum(card_value)

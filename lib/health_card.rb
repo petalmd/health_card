@@ -16,8 +16,13 @@ class HealthCard
   end
 
   def self.sanitize(card_value, iso3166_code)
-    sanitizer = get_sanitizer(iso3166_code)
-    sanitizer.new.sanitize(card_value)
+    converter = get_converter(iso3166_code)
+    converter.new.sanitize(card_value)
+  end
+
+  def self.beautify(card_value, iso3166_code)
+    converter = get_converter(iso3166_code)
+    converter.new.beautify(card_value)
   end
 
   private
@@ -33,26 +38,28 @@ class HealthCard
 
   end
 
-  def self.get_sanitizer(iso3166_code)
+  def self.get_converter(iso3166_code)
 
     case iso3166_code
-      when 'CA-QC' then HealthCard::Sanitizers::Canada::QuebecSanitizer
-      when 'CA-ON' then HealthCard::Sanitizers::Canada::OntarioSanitizer
+      when 'CA-QC' then HealthCard::Converters::Canada::QuebecConverter
+      when 'CA-ON' then HealthCard::Converters::Canada::OntarioConverter
       else
-        HealthCard::Sanitizers::BaseSanitizer
+        raise HealthCard::Errors::NoConverterError, "No converter defined for ISO 3166 code #{iso3166_code}."
     end
 
   end
 
 end
 
+require 'health_card/errors/invalid_card_value_error'
+require 'health_card/errors/no_converter_error'
 require 'health_card/errors/no_validator_error'
 
 require 'health_card/helpers/diacritics_helper'
 
-require 'health_card/sanitizers/base_sanitizer'
-require 'health_card/sanitizers/canada/quebec_sanitizer'
-require 'health_card/sanitizers/canada/ontario_sanitizer'
+require 'health_card/converters/base_converter'
+require 'health_card/converters/canada/quebec_converter'
+require 'health_card/converters/canada/ontario_converter'
 
 require 'health_card/validators/base_validator'
 require 'health_card/validators/canada/quebec_validator'

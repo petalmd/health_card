@@ -12,11 +12,13 @@ Gem::Specification.new do |s|
 
   s.files       = %w(
       lib/health_card.rb
+      lib/health_card/errors/invalid_card_value_error.rb
+      lib/health_card/errors/no_converter_error.rb
       lib/health_card/errors/no_validator_error.rb
       lib/health_card/helpers/diacritics_helper.rb
-      lib/health_card/sanitizers/base_sanitizer.rb
-      lib/health_card/sanitizers/canada/quebec_sanitizer.rb
-      lib/health_card/sanitizers/canada/ontario_sanitizer.rb
+      lib/health_card/converters/base_converter.rb
+      lib/health_card/converters/canada/quebec_converter.rb
+      lib/health_card/converters/canada/ontario_converter.rb
       lib/health_card/validators/base_validator.rb
       lib/health_card/validators/canada/quebec_validator.rb
       lib/health_card/validators/canada/ontario_validator.rb
