@@ -2,7 +2,7 @@ RSpec.describe HealthCard::Converters::Canada::QuebecConverter do
 
   let(:converter) { described_class.new }
 
-  describe '.sanitize' do
+  describe '#sanitize' do
 
     subject { converter.sanitize(card_value) }
 
@@ -11,7 +11,7 @@ RSpec.describe HealthCard::Converters::Canada::QuebecConverter do
 
   end
 
-  describe '.beautify' do
+  describe '#beautify' do
 
     subject { converter.beautify(card_value) }
 

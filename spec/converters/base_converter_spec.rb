@@ -2,7 +2,7 @@ RSpec.describe HealthCard::Converters::BaseConverter do
 
   let(:converter) { described_class.new }
 
-  describe '.sanitize' do
+  describe '#sanitize' do
 
     subject { converter.sanitize(card_value) }
 
@@ -28,7 +28,7 @@ RSpec.describe HealthCard::Converters::BaseConverter do
 
   end
 
-  describe '.beautify' do
+  describe '#beautify' do
 
     subject { converter.beautify('any_value') }
 

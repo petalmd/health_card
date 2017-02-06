@@ -5,6 +5,10 @@ module HealthCard::Validators
       raise NotImplementedError
     end
 
+    def card_valid!(_card_value, _info = {})
+      raise NotImplementedError
+    end
+
     private
 
     def validate_format(card_value, regex_validation)

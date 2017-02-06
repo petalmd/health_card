@@ -1,8 +1,8 @@
 RSpec.describe HealthCard::Validators::Canada::QuebecValidator do
 
-  describe '#card_valid?' do
+  let(:validator) { described_class.new }
 
-    let(:validator) { described_class.new }
+  describe '#card_valid?' do
 
     context 'when no info is specified' do
 
@@ -136,6 +136,27 @@ RSpec.describe HealthCard::Validators::Canada::QuebecValidator do
 
       end
 
+    end
+
+  end
+
+  describe '#card_valid!' do
+
+    let(:card_value) { double(:card_value) }
+    subject { validator.card_valid!(card_value) }
+
+    context 'when the card value is correct' do
+      before(:example) { allow(validator).to receive(:card_valid?).with(card_value, {}).and_return(true) }
+      it 'returns true' do
+        expect(subject).to eq(true)
+      end
+    end
+
+    context 'when the card value is incorrect' do
+      before(:example) { allow(validator).to receive(:card_valid?).with(card_value, {}).and_return(false) }
+      it 'raises an exception' do
+        expect { subject }.to raise_error(HealthCard::Errors::InvalidCardValueError)
+      end
     end
 
   end

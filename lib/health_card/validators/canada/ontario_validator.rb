@@ -18,6 +18,19 @@ module HealthCard::Validators
 
       end
 
+      # Validates the specified card value against the Canada/Ontario validator,
+      # and raises an InvalidCardValueError if invalid.
+      #
+      # @param card_value [String] the card value to validate
+      # @return [true] if the card is valid, raises an exception otherwise
+      def card_valid!(card_value, _info = {})
+        unless card_valid?(card_value, _info)
+          raise HealthCard::Errors::InvalidCardValueError, "Card value `#{card_value}` is invalid in Canada/Ontario."
+        end
+
+        true
+      end
+
       private
 
       def validate_value(card_value)
