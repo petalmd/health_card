@@ -6,12 +6,18 @@ module HealthCard::Validators
 
       REGEX_VALIDATION = /\A[A-Z]{4}\d{6}[1-9]\d\z/
 
+      # Validates the specified card value against the Canada/Quebec validator.
+      #
+      # @param card_value [String] the card value to validate
+      # @param info [Hash] additional info about the card that will be
+      #   validated against the card value
+      # @return [true, false] whether the card value is valid or not
       def card_valid?(card_value, info = {})
 
         card_value = minimize_value(card_value)
 
         is_valid = validate_value(card_value) &&
-            validate_checksum(card_value, info && info[:birth_date])
+            validate_checksum(card_value, info[:birth_date])
 
         if info[:last_name] && info[:first_name]
           is_valid &&= validate_names(card_value, info[:last_name], info[:first_name])
@@ -39,12 +45,11 @@ module HealthCard::Validators
         is_valid && date_valid
       end
 
-
       def validate_names(card_value, last_name, first_name)
         chars = last_name[0..2].ljust(3, 'X')
         chars += first_name[0]
 
-        card_value[0..3].downcase == chars.remove_diacritics.downcase.gsub(/[^a-z]/i, '')
+        card_value[0..3].downcase == HealthCard::Helpers::DiacriticsHelper.remove_diacritics(chars).downcase.gsub(/[^a-z]/i, '')
       end
 
       def validate_birth_date(card_value, birth_date, gender)

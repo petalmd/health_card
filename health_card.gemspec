@@ -12,13 +12,13 @@ Gem::Specification.new do |s|
 
   s.files       = %w(
       lib/health_card.rb
-      lib/health_card/string.rb
       lib/health_card/errors/no_validator_error.rb
+      lib/health_card/helpers/diacritics_helper.rb
       lib/health_card/validators/base_validator.rb
       lib/health_card/validators/canada/quebec_validator.rb
       lib/health_card/validators/canada/ontario_validator.rb
   )
 
-  s.add_development_dependency 'rspec', ['~> 3.5']
+  s.add_development_dependency 'rspec', '~> 3.5'
 
 end

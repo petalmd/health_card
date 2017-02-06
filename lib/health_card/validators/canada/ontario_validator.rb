@@ -4,6 +4,10 @@ module HealthCard::Validators
 
       REGEX_VALIDATION = /\A[1-9]\d{9}[A-Z]{0,2}\z/
 
+      # Validates the specified card value against the Canada/Ontario validator.
+      #
+      # @param card_value [String] the card value to validate
+      # @return [true, false] whether the card value is valid or not
       def card_valid?(card_value, _info = {})
 
         card_value = minimize_value(card_value)
