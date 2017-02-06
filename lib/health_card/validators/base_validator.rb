@@ -11,9 +11,5 @@ module HealthCard::Validators
       !!(card_value =~ regex_validation)
     end
 
-    def minimize_value(card_value)
-      card_value.upcase.gsub(/[^0-9A-Z]/i, '')
-    end
-
   end
 end

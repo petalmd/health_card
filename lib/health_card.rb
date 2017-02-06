@@ -15,6 +15,11 @@ class HealthCard
     validator.new.card_valid?(card_value, validation_info)
   end
 
+  def self.sanitize(card_value, iso3166_code)
+    sanitizer = get_sanitizer(iso3166_code)
+    sanitizer.new.sanitize(card_value)
+  end
+
   private
 
   def self.get_validator(iso3166_code)
@@ -28,11 +33,26 @@ class HealthCard
 
   end
 
+  def self.get_sanitizer(iso3166_code)
+
+    case iso3166_code
+      when 'CA-QC' then HealthCard::Sanitizers::Canada::QuebecSanitizer
+      when 'CA-ON' then HealthCard::Sanitizers::Canada::OntarioSanitizer
+      else
+        HealthCard::Sanitizers::BaseSanitizer
+    end
+
+  end
+
 end
 
 require 'health_card/errors/no_validator_error'
 
 require 'health_card/helpers/diacritics_helper'
+
+require 'health_card/sanitizers/base_sanitizer'
+require 'health_card/sanitizers/canada/quebec_sanitizer'
+require 'health_card/sanitizers/canada/ontario_sanitizer'
 
 require 'health_card/validators/base_validator'
 require 'health_card/validators/canada/quebec_validator'

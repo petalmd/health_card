@@ -14,6 +14,9 @@ Gem::Specification.new do |s|
       lib/health_card.rb
       lib/health_card/errors/no_validator_error.rb
       lib/health_card/helpers/diacritics_helper.rb
+      lib/health_card/sanitizers/base_sanitizer.rb
+      lib/health_card/sanitizers/canada/quebec_sanitizer.rb
+      lib/health_card/sanitizers/canada/ontario_sanitizer.rb
       lib/health_card/validators/base_validator.rb
       lib/health_card/validators/canada/quebec_validator.rb
       lib/health_card/validators/canada/ontario_validator.rb

@@ -1,8 +1,12 @@
-RSpec.describe HealthCard::Helpers::DiacriticsHelper do
+RSpec.describe HealthCard::DiacriticsHelper do
 
   describe '.remove_diacritics' do
 
-    subject { described_class.remove_diacritics(string) }
+    class DiacriticsMockClass
+      include HealthCard::DiacriticsHelper
+    end
+
+    subject { DiacriticsMockClass.new.remove_diacritics(string) }
 
     context 'when the string has diacritics' do
       let(:string) { 'äbcdéfghîj' }
