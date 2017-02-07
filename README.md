@@ -2,6 +2,14 @@
 
 Services and validations for government-issued health cards.
 
+## Usage
+
+In your _Gemfile_, add the following line:
+
+`gem 'health_card', git: 'https://github.com/petalmd/health_card.git', branch:  'master'`
+
+and then run `bundle install`. You will then have access to HealthCard's methods.
+
 ## Validators
 
 A card value can be validated by means of the following methods:
