@@ -16,5 +16,9 @@ module HealthCard::Converters
       raise NotImplementedError
     end
 
+    def beautify!(_card_value)
+      raise NotImplementedError
+    end
+
   end
 end

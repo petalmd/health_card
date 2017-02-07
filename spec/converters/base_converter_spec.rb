@@ -38,4 +38,14 @@ RSpec.describe HealthCard::Converters::BaseConverter do
 
   end
 
+  describe '#beautify!' do
+
+    subject { converter.beautify!('any_value') }
+
+    it 'raises an exception' do
+      expect { subject }.to raise_error(NotImplementedError)
+    end
+
+  end
+
 end

@@ -49,6 +49,16 @@ class HealthCard
     converter.new.beautify(card_value)
   end
 
+  # Renders the specified card value for display in country/subdivision.
+  #
+  # @param card_value [String] the card value to beautify
+  # @return [String] the resulting card value, or an InvalidCardValueError if
+  #   the card value is invalid
+  def self.beautify!(card_value, iso3166_code)
+    converter = get_converter(iso3166_code)
+    converter.new.beautify!(card_value)
+  end
+
   private
 
   def self.get_validator(iso3166_code)

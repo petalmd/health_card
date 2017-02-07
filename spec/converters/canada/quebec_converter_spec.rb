@@ -22,6 +22,24 @@ RSpec.describe HealthCard::Converters::Canada::QuebecConverter do
 
     context 'when the card value is invalid' do
       let(:card_value)  { 'aaaa0101011' }
+      it 'does not change the card value' do
+        expect(subject).to eq(card_value)
+      end
+    end
+
+  end
+
+  describe '#beautify!' do
+
+    subject { converter.beautify!(card_value) }
+
+    context 'when the card value is valid' do
+      let(:card_value)  { 'aaaa01010112' }
+      it { is_expected.to eq('AAAA 0101 0112')}
+    end
+
+    context 'when the card value is invalid' do
+      let(:card_value)  { 'aaaa0101011' }
       it 'raises an exception' do
         expect { subject }.to raise_error(HealthCard::Errors::InvalidCardValueError)
       end

@@ -26,7 +26,7 @@ Return value:
 
 Notes:
 
-The `.card_valid!` version of the method will raise a `InvalidCardValueError` instead of returning `false`.
+The `.card_valid!` version of the method will raise an `InvalidCardValueError` instead of returning `false`.
 
 ## Converters
 
@@ -34,7 +34,7 @@ A card value can be converted to other useful formats. The following methods are
 
 ### sanitize
 
-Strips the specified card value to the bare minimum. It removes diacritics and all non-alphanumeric characters. 
+Strips the specified card value to the bare minimum. Basically, it removes diacritics and all non-alphanumeric characters.
 
 Usage:
 
@@ -49,7 +49,7 @@ Return value:
 
 The stripped-down card value.
 
-### beautify
+### beautify, beautify!
 
 Formats the specified card value to how it would look like on an official card.
 
@@ -65,6 +65,10 @@ Parameters:
 Return value:
 
 The card value in the country or country subdivision's official format.
+
+Notes:
+
+This method validates the card value first. If the card value is not valid, it will not be changed. The `.beautify!` version of the method will raise an `InvalidCardValueError` instead.
 
 ## ISO 3166 codes
 
