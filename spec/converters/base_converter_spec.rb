@@ -26,6 +26,16 @@ RSpec.describe HealthCard::Converters::BaseConverter do
       it { is_expected.to eq('ABCDE0010') }
     end
 
+    context 'when the value is nil' do
+      let(:card_value) { nil }
+      it { is_expected.to be_nil }
+    end
+
+    context 'when the value is blank' do
+      let(:card_value) { ' ' }
+      it { is_expected.to eq('') }
+    end
+
   end
 
   describe '#beautify' do
