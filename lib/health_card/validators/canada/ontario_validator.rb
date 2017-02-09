@@ -8,23 +8,31 @@ module HealthCard::Validators
       # Validates the specified card value against the Canada/Ontario validator.
       #
       # @param card_value [String] the card value to validate
+      # @param options [Hash] additional info about the card that will be
+      #   validated against the card value
       # @return [true, false] whether the card value is valid or not
-      def card_valid?(card_value, _info = {})
+      def card_valid?(card_value, options = {})
 
         card_value = HealthCard.sanitize(card_value, 'CA-ON')
 
-        validate_value(card_value) &&
-            validate_checksum(card_value)
+        is_valid = validate_value(card_value)
 
+        unless options[:skip_checksum]
+          is_valid &&= validate_checksum(card_value)
+        end
+
+        is_valid
       end
 
       # Validates the specified card value against the Canada/Ontario validator,
       # and raises an InvalidCardValueError if invalid.
       #
       # @param card_value [String] the card value to validate
+      # @param options [Hash] additional info about the card that will be
+      #   validated against the card value
       # @return [true] if the card is valid, raises an exception otherwise
-      def card_valid!(card_value, _info = {})
-        unless card_valid?(card_value, _info)
+      def card_valid!(card_value, options = {})
+        unless card_valid?(card_value, options)
           raise HealthCard::Errors::InvalidCardValueError, "Card value `#{card_value}` is invalid in Canada/Ontario."
         end
 

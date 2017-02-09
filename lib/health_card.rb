@@ -7,12 +7,12 @@ class HealthCard
   #   must be validated. Country code must follow ISO 3166-1 alpha-2 code.
   #   {http://www.iso.org/iso/country_codes.htm}
   #   {https://en.wikipedia.org/wiki/ISO_3166}
-  # @param validation_info [Hash] additional info about the card that will be
-  #   validated against the card value, if necessary
+  # @param options [Hash] additional info about the card that will be validated
+  #   against the card value, if necessary
   # @return [true, false] whether the card value is valid or not
-  def self.card_valid?(card_value, iso3166_code, validation_info = {})
+  def self.card_valid?(card_value, iso3166_code, options = {})
     validator = get_validator(iso3166_code)
-    validator.new.card_valid?(card_value, validation_info)
+    validator.new.card_valid?(card_value, options)
   end
 
   # Validates the specified card value against the country/subdivision
@@ -23,12 +23,12 @@ class HealthCard
   #   must be validated. Country code must follow ISO 3166-1 alpha-2 code.
   #   {http://www.iso.org/iso/country_codes.htm}
   #   {https://en.wikipedia.org/wiki/ISO_3166}
-  # @param validation_info [Hash] additional info about the card that will be
+  # @param options [Hash] additional info about the card that will be
   #   validated against the card value, if necessary
   # @return [true] if the card is valid, raises an exception otherwise
-  def self.card_valid!(card_value, iso3166_code, validation_info = {})
+  def self.card_valid!(card_value, iso3166_code, options = {})
     validator = get_validator(iso3166_code)
-    validator.new.card_valid!(card_value, validation_info)
+    validator.new.card_valid!(card_value, options)
   end
 
   # Sanitizes the specified card value for the country/subdivision.

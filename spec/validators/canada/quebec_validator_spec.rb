@@ -4,7 +4,7 @@ RSpec.describe HealthCard::Validators::Canada::QuebecValidator do
 
   describe '#card_valid?' do
 
-    context 'when no info is specified' do
+    context 'when no options are specified' do
 
       context 'and the card value is correct' do
 
@@ -89,9 +89,9 @@ RSpec.describe HealthCard::Validators::Canada::QuebecValidator do
 
     end
 
-    context 'when info is specified' do
+    context 'when options is specified' do
 
-      let(:info) do
+      let(:options) do
         {
             last_name: 'Last',
             first_name: 'First',
@@ -105,7 +105,7 @@ RSpec.describe HealthCard::Validators::Canada::QuebecValidator do
       # validations.
       before(:example) { expect(validator.card_valid?(card_value)).to eq(true) }
 
-      subject { validator.card_valid?(card_value, info) }
+      subject { validator.card_valid?(card_value, options) }
 
       context 'and the card value is correct' do
         let(:card_value) { 'LASF80021411' }
@@ -136,6 +136,13 @@ RSpec.describe HealthCard::Validators::Canada::QuebecValidator do
 
       end
 
+    end
+
+    context 'when the checksum should be skipped' do
+      subject { validator.card_valid?(card_value, options) }
+      let(:card_value) { 'AAAA01010119' }
+      let(:options) { { skip_checksum: true } }
+      it { is_expected.to eq(true) }
     end
 
   end

@@ -3,9 +3,9 @@ RSpec.describe HealthCard do
   describe '.card_valid?' do
 
     let(:card_value) { double(:card_value) }
-    let(:validation_info) { double(:validation_info) }
+    let(:options) { double(:options) }
 
-    subject { described_class.card_valid?(card_value, iso3166_code, validation_info) }
+    subject { described_class.card_valid?(card_value, iso3166_code, options) }
 
     context 'when the ISO 3166 code is specified' do
 
@@ -15,7 +15,7 @@ RSpec.describe HealthCard do
         let(:validator) { validator_class.new }
         it 'uses the correct validator' do
           allow(validator_class).to receive(:new).and_return(validator)
-          expect(validator).to receive(:card_valid?).with(card_value, validation_info)
+          expect(validator).to receive(:card_valid?).with(card_value, options)
           subject
         end
       end
@@ -26,7 +26,7 @@ RSpec.describe HealthCard do
         let(:validator) { validator_class.new }
         it 'uses the correct validator' do
           allow(validator_class).to receive(:new).and_return(validator)
-          expect(validator).to receive(:card_valid?).with(card_value, validation_info)
+          expect(validator).to receive(:card_valid?).with(card_value, options)
           subject
         end
       end

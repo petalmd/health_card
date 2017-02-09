@@ -1,11 +1,11 @@
 module HealthCard::Validators
   class BaseValidator
 
-    def card_valid?(_card_value, _info = {})
+    def card_valid?(_card_value, _options = {})
       raise NotImplementedError
     end
 
-    def card_valid!(_card_value, _info = {})
+    def card_valid!(_card_value, _options = {})
       raise NotImplementedError
     end
 

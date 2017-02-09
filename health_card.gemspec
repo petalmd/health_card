@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
 
   s.name        = 'health_card'
-  s.version     = '0.2.0'
+  s.version     = '0.2.1'
   s.date        = '2017-02-05'
   s.summary     = 'Health card validations.'
   s.description = 'Services and validations related to government health cards.'

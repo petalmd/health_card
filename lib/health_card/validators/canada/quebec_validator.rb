@@ -12,37 +12,39 @@ module HealthCard::Validators
       # Validates the specified card value against the Canada/Quebec validator.
       #
       # @param card_value [String] the card value to validate
-      # @param info [Hash] additional info about the card that will be
+      # @param options [Hash] additional info about the card that will be
       #   validated against the card value
       # @return [true, false] whether the card value is valid or not
-      def card_valid?(card_value, info = {})
+      def card_valid?(card_value, options = {})
 
         card_value = HealthCard.sanitize(card_value, 'CA-QC')
 
-        is_valid = validate_value(card_value) &&
-            validate_checksum(card_value, info[:birth_date])
+        is_valid = validate_value(card_value)
 
-        if info[:last_name] && info[:first_name]
-          is_valid &&= validate_names(card_value, info[:last_name], info[:first_name])
+        unless options[:skip_checksum]
+          is_valid &&= validate_checksum(card_value, options[:birth_date])
         end
 
-        if info[:birth_date] && info[:gender]
-          is_valid &&= validate_birth_date(card_value, info[:birth_date], info[:gender])
+        if options[:last_name] && options[:first_name]
+          is_valid &&= validate_names(card_value, options[:last_name], options[:first_name])
+        end
+
+        if options[:birth_date] && options[:gender]
+          is_valid &&= validate_birth_date(card_value, options[:birth_date], options[:gender])
         end
 
         is_valid
-
       end
 
       # Validates the specified card value against the Canada/Quebec validator,
       # and raises an InvalidCardValueError if invalid.
       #
       # @param card_value [String] the card value to validate
-      # @param info [Hash] additional info about the card that will be
+      # @param options [Hash] additional info about the card that will be
       #   validated against the card value
       # @return [true] if the card is valid, raises an exception otherwise
-      def card_valid!(card_value, info = {})
-        unless card_valid?(card_value, info)
+      def card_valid!(card_value, options = {})
+        unless card_valid?(card_value, options)
           raise HealthCard::Errors::InvalidCardValueError, "Card value `#{card_value}` is invalid in Canada/Quebec."
         end
 

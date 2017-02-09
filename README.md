@@ -20,13 +20,13 @@ Validates the specified card value.
 
 Usage:
 
-`HealthCard.card_valid?(card_value, iso3166_code, validation_info)`
+`HealthCard.card_valid?(card_value, iso3166_code, options)`
 
 Parameters:
 
 - `card_value` (`String`): the card value to be validated.
 - `iso3166_code` (`String`): the ISO 3166 code that represents the country or country subdivision against which the card value should be validated.
-- `validation_info` (`Hash`): extra informations about the card that may affect the card value's validation (eg. first and last name of the card bearer).
+- `options` (`Hash`): extra informations about the card that may affect the card value's validation (eg. first and last name of the card bearer). Also contains the `skip_checksum` flag, which will tell the validator not to validate the checksum.
 
 Return value:
 

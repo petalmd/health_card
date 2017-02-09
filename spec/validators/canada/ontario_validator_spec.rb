@@ -57,6 +57,13 @@ RSpec.describe HealthCard::Validators::Canada::OntarioValidator do
 
     end
 
+    context 'when the checksum should be skipped' do
+      subject { validator.card_valid?(card_value, options) }
+      let(:card_value) { '9876-543-210' }
+      let(:options) { { skip_checksum: true } }
+      it { is_expected.to eq(true) }
+    end
+
   end
 
   describe '#card_valid!' do
